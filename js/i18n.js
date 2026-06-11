@@ -39,7 +39,7 @@ const I18N = {
     /* Show More */
     'show_more': '显示更多历史内容',
     'show_less': '收起',
-    'show_more.count': '+{count} 条历史记录',
+    'show_more.count': '+{count}',
 
     /* Page */
     'page.releases.title': '近期流出 — COSV5 社群资源站',
@@ -96,7 +96,7 @@ const I18N = {
     /* Show More */
     'show_more': 'Show More History',
     'show_less': 'Collapse',
-    'show_more.count': '+{count} historical items',
+    'show_more.count': '+{count}',
 
     /* Page */
     'page.releases.title': 'Releases — COSV5 Community Hub',

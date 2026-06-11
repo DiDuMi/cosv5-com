@@ -12,21 +12,14 @@
   <meta property="og:url" content="https://cosv5.com/releases/">
   <link rel="canonical" href="https://cosv5.com/releases/">
   <title data-i18n="page.releases.title">近期流出 — COSV5 社群资源站</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   <canvas id="particles-canvas"></canvas>
 
-  <!-- Header -->
   <header class="header">
     <nav class="nav">
-      <a href="/" class="nav-logo">
-        <span class="logo-icon">C</span>
-        <span>COSV5</span>
-      </a>
+      <a href="/" class="nav-logo">COSV5</a>
       <ul class="nav-links" id="nav-links">
         <li><a href="/" data-i18n="nav.home">首页</a></li>
         <li><a href="/releases/" class="active" data-i18n="nav.releases">近期流出</a></li>
@@ -34,7 +27,7 @@
         <li><a href="/about/" data-i18n="nav.about">关于</a></li>
       </ul>
       <div class="nav-right">
-        <button class="lang-btn" id="lang-toggle" onclick="toggleLang()">English</button>
+        <button class="lang-btn" id="lang-toggle" onclick="toggleLang()" data-i18n="lang.switch">English</button>
         <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu">☰</button>
       </div>
     </nav>
@@ -51,12 +44,12 @@
     <section class="section" style="padding-top:0">
       <div class="container">
         <div class="section-header">
-          <div class="section-count"><span data-i18n-dynamic></span></div>
+          <h2 class="section-title">📡 <span data-i18n="section.releases.title">近期流出</span></h2>
+          <span class="section-meta"><span data-i18n-dynamic></span></span>
         </div>
-        <div class="card-grid" id="releases-grid"></div>
+        <ul class="resource-list" id="releases-list"></ul>
         <div class="empty-state" style="display:none">
-          <div class="empty-icon">📭</div>
-          <h3 data-i18n="section.releases.empty">暂无近期流出内容</h3>
+          <p data-i18n="section.releases.empty">暂无近期流出内容</p>
         </div>
         <div class="show-more-wrapper" style="display:none">
           <button class="btn-show-more"></button>
@@ -76,7 +69,7 @@
   <script src="/js/main.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      loadSection('releases-grid', '/data/releases.json', false);
+      loadSection('releases-list', '/data/releases.json', false);
     });
   </script>
 </body>
