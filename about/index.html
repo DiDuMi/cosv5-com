@@ -11,19 +11,15 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://cosv5.com/about/">
   <link rel="canonical" href="https://cosv5.com/about/">
-  <title data-i18n="page.about.title">关于 — COSV5 社群资源站</title>
+  <title data-i18n="page.about.title">关于 — COSV5</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
   <style>
-    .about-content { max-width: 700px; margin: 0 auto; }
-    .about-content p { margin-bottom: 1.2rem; color: var(--text-secondary); line-height: 1.8; }
-    .about-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 40px; }
-    .about-feature { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; text-align: center; }
-    .about-feature .icon { font-size: 2.5rem; margin-bottom: 12px; }
-    .about-feature h3 { font-size: 1.1rem; margin-bottom: 8px; }
-    .about-feature p { font-size: 0.85rem; color: var(--text-secondary); }
+    .about-content p { margin-bottom: 1rem; line-height: 1.8; }
+    .about-feature { transition: all 0.2s; }
+    .about-feature:hover { border-color: rgba(124,58,237,0.2); }
   </style>
 </head>
 <body>
@@ -31,14 +27,11 @@
 
   <header class="header">
     <nav class="nav">
-      <a href="/" class="nav-logo">
-        <span class="logo-icon">C</span>
-        <span>COSV5</span>
-      </a>
+      <a href="/" class="nav-logo">COSV5</a>
       <ul class="nav-links" id="nav-links">
         <li><a href="/" data-i18n="nav.home">首页</a></li>
-        <li><a href="/releases/" data-i18n="nav.releases">近期流出</a></li>
-        <li><a href="/premium/" data-i18n="nav.premium">高级精选</a></li>
+        <li><a href="/releases/" data-i18n="nav.releases">流出</a></li>
+        <li><a href="/premium/" data-i18n="nav.premium">精选</a></li>
         <li><a href="/about/" class="active" data-i18n="nav.about">关于</a></li>
       </ul>
       <div class="nav-right">

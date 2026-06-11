@@ -6,12 +6,16 @@
   <meta name="description" data-i18n="section.premium.desc" content="高级会员专享的精选资源，品质保证。">
   <meta name="keywords" content="COSV5,高级精选,VIP资源,精品资源">
   <meta name="robots" content="index, follow">
-  <meta property="og:title" data-i18n="page.premium.title" content="高级精选 — COSV5 社群资源站">
+  <meta property="og:title" data-i18n="page.premium.title" content="高级精选 — COSV5">
   <meta property="og:description" data-i18n="section.premium.desc" content="高级会员专享的精选资源，品质保证。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://cosv5.com/premium/">
+  <meta name="theme-color" content="#0a0a0f">
   <link rel="canonical" href="https://cosv5.com/premium/">
-  <title data-i18n="page.premium.title">高级精选 — COSV5 社群资源站</title>
+  <title data-i18n="page.premium.title">高级精选 — COSV5</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -22,8 +26,8 @@
       <a href="/" class="nav-logo">COSV5</a>
       <ul class="nav-links" id="nav-links">
         <li><a href="/" data-i18n="nav.home">首页</a></li>
-        <li><a href="/releases/" data-i18n="nav.releases">近期流出</a></li>
-        <li><a href="/premium/" class="active" data-i18n="nav.premium">高级精选</a></li>
+        <li><a href="/releases/" data-i18n="nav.releases">流出</a></li>
+        <li><a href="/premium/" class="active" data-i18n="nav.premium">精选</a></li>
         <li><a href="/about/" data-i18n="nav.about">关于</a></li>
       </ul>
       <div class="nav-right">
@@ -36,7 +40,7 @@
   <main>
     <section class="page-header">
       <div class="container">
-        <h1 data-i18n="page.premium.heading">高级精选资源</h1>
+        <h1 data-i18n="page.premium.heading">高级精选</h1>
         <p data-i18n="section.premium.desc">高级会员专享的精选资源，品质保证。</p>
       </div>
     </section>
@@ -48,12 +52,8 @@
           <span class="section-meta"><span data-i18n-dynamic></span></span>
         </div>
         <ul class="resource-list" id="premium-list"></ul>
-        <div class="empty-state" style="display:none">
-          <p data-i18n="section.premium.empty">暂无高级精选内容</p>
-        </div>
-        <div class="show-more-wrapper" style="display:none">
-          <button class="btn-show-more"></button>
-        </div>
+        <div class="empty-state" style="display:none"><p data-i18n="section.premium.empty">暂无高级精选内容</p></div>
+        <div class="show-more-wrapper" style="display:none"><button class="btn-show-more"></button></div>
       </div>
     </section>
   </main>

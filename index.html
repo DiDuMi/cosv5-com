@@ -6,12 +6,16 @@
   <meta name="description" data-i18n="hero.subtitle" content="汇聚精选资源，社群成员专属。每周更新最新流出与高级精选内容。">
   <meta name="keywords" content="COSV5,社群资源,精选内容,资源分享,近期流出,高级精选">
   <meta name="robots" content="index, follow">
-  <meta property="og:title" content="COSV5 社群资源站">
+  <meta property="og:title" content="COSV5 — 社群资源站">
   <meta property="og:description" data-i18n="hero.subtitle" content="汇聚精选资源，社群成员专属。每周更新最新流出与高级精选内容。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://cosv5.com">
+  <meta name="theme-color" content="#0a0a0f">
   <link rel="canonical" href="https://cosv5.com">
-  <title data-i18n="hero.title">COSV5 社群资源站</title>
+  <title data-i18n="hero.title">COSV5 — 社群资源站</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -22,8 +26,8 @@
       <a href="/" class="nav-logo">COSV5</a>
       <ul class="nav-links" id="nav-links">
         <li><a href="/" class="active" data-i18n="nav.home">首页</a></li>
-        <li><a href="/releases/" data-i18n="nav.releases">近期流出</a></li>
-        <li><a href="/premium/" data-i18n="nav.premium">高级精选</a></li>
+        <li><a href="/releases/" data-i18n="nav.releases">流出</a></li>
+        <li><a href="/premium/" data-i18n="nav.premium">精选</a></li>
         <li><a href="/about/" data-i18n="nav.about">关于</a></li>
       </ul>
       <div class="nav-right">
@@ -36,11 +40,12 @@
   <main>
     <section class="hero">
       <div class="container">
-        <h1 data-i18n="hero.title">COSV5 社群资源站</h1>
+        <div class="hero-badge" data-i18n="hero.badge">COSPLAY · COMMUNITY · SHARING</div>
+        <h1>COS<span class="accent">V5</span></h1>
         <p data-i18n="hero.subtitle">汇聚精选资源，社群成员专属。每周更新最新流出与高级精选内容。</p>
         <div class="hero-actions">
-          <a href="/releases/" class="btn btn-primary" data-i18n="hero.cta.releases">浏览近期流出</a>
-          <a href="/premium/" class="btn btn-gold" data-i18n="hero.cta.premium">查看高级精选</a>
+          <a href="/releases/" class="btn btn-primary" data-i18n="hero.cta.releases">📡 近期流出</a>
+          <a href="/premium/" class="btn btn-gold" data-i18n="hero.cta.premium">⭐ 高级精选</a>
         </div>
       </div>
     </section>
@@ -53,12 +58,8 @@
           <a href="/releases/" class="view-all" data-i18n="section.releases.view_all">查看全部 →</a>
         </div>
         <ul class="resource-list" id="releases-list"></ul>
-        <div class="empty-state" style="display:none">
-          <p data-i18n="section.releases.empty">暂无近期流出内容</p>
-        </div>
-        <div class="show-more-wrapper" style="display:none">
-          <button class="btn-show-more"></button>
-        </div>
+        <div class="empty-state" style="display:none"><p data-i18n="section.releases.empty">暂无近期流出内容</p></div>
+        <div class="show-more-wrapper" style="display:none"><button class="btn-show-more"></button></div>
       </div>
     </section>
 
@@ -70,12 +71,8 @@
           <a href="/premium/" class="view-all" data-i18n="section.premium.view_all">查看全部 →</a>
         </div>
         <ul class="resource-list" id="premium-list"></ul>
-        <div class="empty-state" style="display:none">
-          <p data-i18n="section.premium.empty">暂无高级精选内容</p>
-        </div>
-        <div class="show-more-wrapper" style="display:none">
-          <button class="btn-show-more"></button>
-        </div>
+        <div class="empty-state" style="display:none"><p data-i18n="section.premium.empty">暂无高级精选内容</p></div>
+        <div class="show-more-wrapper" style="display:none"><button class="btn-show-more"></button></div>
       </div>
     </section>
   </main>

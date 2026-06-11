@@ -5,14 +5,15 @@ const I18N = {
   zh: {
     /* Nav */
     'nav.home': '首页',
-    'nav.releases': '近期流出',
-    'nav.premium': '高级精选',
+    'nav.releases': '流出',
+    'nav.premium': '精选',
     'nav.about': '关于',
     'lang.switch': 'English',
 
     /* Hero */
-    'hero.title': 'COSV5 社群资源站',
+    'hero.title': 'COSV5 — 社群资源站',
     'hero.subtitle': '汇聚精选资源，社群成员专属。每周更新最新流出与高级精选内容。',
+    'hero.badge': 'COSPLAY · COMMUNITY · SHARING',
     'hero.cta.releases': '浏览近期流出',
     'hero.cta.premium': '查看高级精选',
 
@@ -68,8 +69,9 @@ const I18N = {
     'lang.switch': '中文',
 
     /* Hero */
-    'hero.title': 'COSV5 Community Hub',
+    'hero.title': 'COSV5 — Community Hub',
     'hero.subtitle': 'Curated premium resources for community members. Weekly updates on latest releases and exclusive content.',
+    'hero.badge': 'COSPLAY · COMMUNITY · SHARING',
     'hero.cta.releases': 'Browse Releases',
     'hero.cta.premium': 'View Premium',
 
