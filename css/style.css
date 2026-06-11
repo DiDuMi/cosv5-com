@@ -321,8 +321,6 @@ img { max-width: 100%; height: auto; }
   border-radius: var(--radius);
   overflow: hidden;
   transition: all 0.3s;
-  display: flex;
-  flex-direction: column;
 }
 
 .card:hover {
@@ -332,27 +330,8 @@ img { max-width: 100%; height: auto; }
   box-shadow: 0 8px 30px rgba(0,0,0,0.4);
 }
 
-.card-image {
-  width: 100%;
-  aspect-ratio: 16/9;
-  background: linear-gradient(135deg, #1a1a2e, #2a1a3e);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.card-image svg {
-  width: 48px;
-  height: 48px;
-  opacity: 0.5;
-}
-
 .card-body {
-  padding: 16px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+  padding: 20px;
 }
 
 .card-category {

@@ -127,16 +127,8 @@ function renderCard(item, isPremium = false) {
   const desc = currentLang === 'zh' ? item.description_cn : item.description_en;
   const category = currentLang === 'zh' ? item.category_cn : item.category_en;
 
-  const placeholderSVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>`;
-
   return `
     <div class="card">
-      <div class="card-image">
-        ${item.image && !item.image.endsWith('placeholder.svg')
-          ? `<img src="${item.image}" alt="${title}" loading="lazy">`
-          : placeholderSVG
-        }
-      </div>
       <div class="card-body">
         <div class="card-category ${isPremium ? 'premium-category' : ''}">${category}</div>
         <h3 class="card-title">${title}</h3>
