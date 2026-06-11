@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" data-i18n="section.releases.desc" content="社群成员分享的最新资源流出，持续更新中。">
+  <meta name="keywords" content="COSV5,近期流出,资源分享,最新资源">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" data-i18n="page.releases.title" content="近期流出 — COSV5 社群资源站">
+  <meta property="og:description" data-i18n="section.releases.desc" content="社群成员分享的最新资源流出，持续更新中。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cosv5.com/releases/">
+  <link rel="canonical" href="https://cosv5.com/releases/">
+  <title data-i18n="page.releases.title">近期流出 — COSV5 社群资源站</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- Header -->
+  <header class="header">
+    <nav class="nav">
+      <a href="/" class="nav-logo">
+        <span class="logo-icon">C</span>
+        <span>COSV5</span>
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/" data-i18n="nav.home">首页</a></li>
+        <li><a href="/releases/" class="active" data-i18n="nav.releases">近期流出</a></li>
+        <li><a href="/premium/" data-i18n="nav.premium">高级精选</a></li>
+        <li><a href="/about/" data-i18n="nav.about">关于</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="lang-btn" id="lang-toggle" onclick="toggleLang()">English</button>
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <h1 data-i18n="page.releases.heading">近期流出资源</h1>
+        <p data-i18n="section.releases.desc">社群成员分享的最新资源流出，持续更新中。</p>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-count"><span data-i18n-dynamic></span></div>
+        </div>
+        <div class="card-grid" id="releases-grid"></div>
+        <div class="empty-state" style="display:none">
+          <div class="empty-icon">📭</div>
+          <h3 data-i18n="section.releases.empty">暂无近期流出内容</h3>
+        </div>
+        <div class="show-more-wrapper" style="display:none">
+          <button class="btn-show-more"></button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p data-i18n="footer.text">© 2026 COSV5. 本站内容仅供社群内部参考。</p>
+      <p><span data-i18n="footer.powered">Powered by COSV5 Community</span></p>
+    </div>
+  </footer>
+
+  <script src="/js/i18n.js"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      loadSection('releases-grid', '/data/releases.json', false);
+    });
+  </script>
+</body>
+</html>

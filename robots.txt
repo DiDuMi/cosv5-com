@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://cosv5.com/sitemap.xml

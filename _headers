@@ -1,0 +1,32 @@
+# Cloudflare Pages headers
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+
+# HTML caching
+/index.html
+  Cache-Control: public, max-age=3600, s-maxage=3600
+
+/releases/index.html
+  Cache-Control: public, max-age=3600, s-maxage=3600
+
+/premium/index.html
+  Cache-Control: public, max-age=3600, s-maxage=3600
+
+/about/index.html
+  Cache-Control: public, max-age=3600, s-maxage=3600
+
+# Static assets - long cache
+/css/*
+  Cache-Control: public, max-age=86400, immutable
+
+/js/*
+  Cache-Control: public, max-age=86400, immutable
+
+/data/*
+  Cache-Control: public, max-age=3600, s-maxage=3600
+
+/images/*
+  Cache-Control: public, max-age=604800, immutable
