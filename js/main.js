@@ -1,5 +1,5 @@
 /**
- * Main JS - Particle animation, data loading, list rendering
+ * Main JS - Particle animation, data loading, enhanced interactions
  */
 
 /* ===== Particle Animation ===== */
@@ -76,6 +76,51 @@
   window.__particlesCleanup = () => cancelAnimationFrame(animId);
 })();
 
+/* ===== Progress Bar ===== */
+(function() {
+  const bar = document.getElementById('progress-bar');
+  if (!bar) return;
+  function update() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+    bar.style.transform = `scaleX(${Math.min(progress, 1)})`;
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+
+/* ===== Scroll Reveal ===== */
+(function() {
+  const els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(el => observer.observe(el));
+})();
+
+/* ===== Back to Top ===== */
+(function() {
+  const btn = document.getElementById('back-to-top');
+  if (!btn) return;
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  }, { passive: true });
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+
 /* ===== Mobile Menu ===== */
 (function() {
   const btn = document.getElementById('mobile-menu-btn');
@@ -88,6 +133,22 @@
       a.addEventListener('click', () => links.classList.remove('open'));
     });
   }
+})();
+
+/* ===== Nav Hide on Scroll Down ===== */
+(function() {
+  const header = document.getElementById('header');
+  if (!header) return;
+  let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+    const current = window.scrollY;
+    if (current > lastScroll && current > 80) {
+      header.classList.add('hidden');
+    } else {
+      header.classList.remove('hidden');
+    }
+    lastScroll = current;
+  }, { passive: true });
 })();
 
 /* ===== Data Loading & List Rendering ===== */
@@ -108,12 +169,15 @@ function renderItem(item, isPremium = false) {
   const date = formatDate(item.date);
   const title = currentLang === 'zh' ? item.title_cn : item.title_en;
   const displayText = item.author
-    ? `${item.author} - ${title}`
+    ? `${item.author} — ${title}`
     : title;
+  const typeClass = isPremium ? 'premium' : 'releases';
+  const typeLabel = isPremium ? 'VIP' : '流出';
 
   return `
-    <li class="resource-item ${isPremium ? 'premium' : ''}">
+    <li class="resource-item ${typeClass}">
       <span class="date-tag">${date}</span>
+      <span class="item-type">${typeLabel}</span>
       <a href="${item.link || '#'}" class="item-link" target="_blank" rel="noopener">${displayText}</a>
       ${item.info ? `<span class="item-info">${item.info}</span>` : ''}
     </li>
@@ -141,7 +205,7 @@ async function loadSection(containerId, dataUrl, isPremium = false) {
 
     if (emptyState) emptyState.style.display = 'none';
 
-    // Render all items as an HTML string
+    // Render all items
     container.innerHTML = items.map(item => renderItem(item, isPremium)).join('');
 
     // Update count
@@ -149,6 +213,11 @@ async function loadSection(containerId, dataUrl, isPremium = false) {
       const key = isPremium ? 'section.premium.count' : 'section.releases.count';
       countEl.textContent = t(key, { count: items.length });
     }
+
+    // Update stats
+    const statId = isPremium ? 'stat-premium' : 'stat-releases';
+    const statEl = document.getElementById(statId);
+    if (statEl) statEl.textContent = items.length;
 
     // Handle show more
     if (showMoreBtn && items.length > 10) {

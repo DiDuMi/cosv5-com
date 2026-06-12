@@ -16,6 +16,13 @@ const I18N = {
     'hero.badge': 'COSPLAY · COMMUNITY · SHARING',
     'hero.cta.releases': '浏览近期流出',
     'hero.cta.premium': '查看高级精选',
+    'hero.scroll': '向下滚动',
+
+    /* Stats */
+    'stat.releases': '近期流出',
+    'stat.premium': '高级精选',
+    'stat.channels': '频道矩阵',
+    'stat.live': '实时更新',
 
     /* Releases Section */
     'section.releases.title': '近期流出',
@@ -74,6 +81,13 @@ const I18N = {
     'hero.badge': 'COSPLAY · COMMUNITY · SHARING',
     'hero.cta.releases': 'Browse Releases',
     'hero.cta.premium': 'View Premium',
+    'hero.scroll': 'Scroll Down',
+
+    /* Stats */
+    'stat.releases': 'Recent Releases',
+    'stat.premium': 'Premium Selections',
+    'stat.channels': 'Channel Network',
+    'stat.live': 'Live Updates',
 
     /* Releases Section */
     'section.releases.title': 'Recent Releases',

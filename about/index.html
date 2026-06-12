@@ -14,18 +14,14 @@
   <title data-i18n="page.about.title">关于 — COSV5</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&family=Righteous&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
-  <style>
-    .about-content p { margin-bottom: 1rem; line-height: 1.8; }
-    .about-feature { transition: all 0.2s; }
-    .about-feature:hover { border-color: rgba(124,58,237,0.2); }
-  </style>
 </head>
 <body>
+  <div class="progress-bar" id="progress-bar"></div>
   <canvas id="particles-canvas"></canvas>
 
-  <header class="header">
+  <header class="header" id="header">
     <nav class="nav">
       <a href="/" class="nav-logo">COSV5</a>
       <ul class="nav-links" id="nav-links">
@@ -35,7 +31,7 @@
         <li><a href="/about/" class="active" data-i18n="nav.about">关于</a></li>
       </ul>
       <div class="nav-right">
-        <button class="lang-btn" id="lang-toggle" onclick="toggleLang()">English</button>
+        <button class="lang-btn" id="lang-toggle" onclick="toggleLang()" data-i18n="lang.switch">English</button>
         <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu">☰</button>
       </div>
     </nav>
@@ -45,10 +41,11 @@
     <section class="page-header">
       <div class="container">
         <h1 data-i18n="page.about.heading">关于 COSV5</h1>
+        <p data-i18n="page.about.content">COSV5 是专注于高品质资源分享的社群，汇聚全球精选内容。</p>
       </div>
     </section>
 
-    <section class="section" style="padding-top:0">
+    <section class="section reveal" style="padding-top:0">
       <div class="container about-content">
         <p data-i18n="page.about.content">COSV5 是专注于高品质资源分享的社群，汇聚全球精选内容。我们持续为社群成员提供最新的流出资源和高级精选内容。</p>
 
@@ -75,10 +72,23 @@
 
   <footer class="footer">
     <div class="container">
-      <p data-i18n="footer.text">© 2026 COSV5. 本站内容仅供社群内部参考。</p>
-      <p><span data-i18n="footer.powered">Powered by COSV5 Community</span></p>
+      <div class="footer-inner">
+        <div class="footer-logo">COSV5</div>
+        <div class="footer-links">
+          <a href="/">首页</a>
+          <a href="/releases/">流出</a>
+          <a href="/premium/">精选</a>
+          <a href="/about/">关于</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p data-i18n="footer.text">© 2026 COSV5. 本站内容仅供社群内部参考。</p>
+        <p><span data-i18n="footer.powered">Powered by COSV5 Community</span></p>
+      </div>
     </div>
   </footer>
+
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
 
   <script src="/js/i18n.js"></script>
   <script src="/js/main.js"></script>

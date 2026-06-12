@@ -15,13 +15,14 @@
   <title data-i18n="hero.title">COSV5 — 社群资源站</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&family=Righteous&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+  <div class="progress-bar" id="progress-bar"></div>
   <canvas id="particles-canvas"></canvas>
 
-  <header class="header">
+  <header class="header" id="header">
     <nav class="nav">
       <a href="/" class="nav-logo">COSV5</a>
       <ul class="nav-links" id="nav-links">
@@ -38,8 +39,10 @@
   </header>
 
   <main>
-    <section class="hero">
-      <div class="container">
+    <!-- Hero -->
+    <section class="hero" id="hero">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
         <div class="hero-badge" data-i18n="hero.badge">COSPLAY · COMMUNITY · SHARING</div>
         <h1>COS<span class="accent">V5</span></h1>
         <p data-i18n="hero.subtitle">汇聚精选资源，社群成员专属。每周更新最新流出与高级精选内容。</p>
@@ -48,29 +51,71 @@
           <a href="/premium/" class="btn btn-gold" data-i18n="hero.cta.premium">⭐ 高级精选</a>
         </div>
       </div>
+      <div class="hero-scroll">
+        <span data-i18n="hero.scroll">向下滚动</span>
+        <div class="scroll-arrow"></div>
+      </div>
     </section>
 
-    <section class="section">
+    <!-- Stats -->
+    <section class="stats-section reveal">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-icon">📡</span>
+            <div><span class="stat-number" id="stat-releases">0</span></div>
+            <span class="stat-label" data-i18n="stat.releases">近期流出</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">⭐</span>
+            <div><span class="stat-number" id="stat-premium">0</span></div>
+            <span class="stat-label" data-i18n="stat.premium">高级精选</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">🌐</span>
+            <div><span class="stat-number" id="stat-channels">100+</span></div>
+            <span class="stat-label" data-i18n="stat.channels">频道矩阵</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">⚡</span>
+            <div><span class="stat-live-dot"></span><span class="stat-number" data-i18n-dynamic>持续更新</span></div>
+            <span class="stat-label" data-i18n="stat.live">实时更新</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Releases -->
+    <section class="section reveal">
+      <div class="section-bg-glow left"></div>
       <div class="container">
         <div class="section-header">
-          <h2 class="section-title" data-i18n="section.releases.title">📡 近期流出</h2>
+          <div>
+            <span class="section-label" data-i18n="section.releases.new">近期更新</span>
+            <h2 class="section-title" data-i18n="section.releases.title">📡 近期流出</h2>
+          </div>
           <span class="section-meta"><span data-i18n-dynamic></span></span>
           <a href="/releases/" class="view-all" data-i18n="section.releases.view_all">查看全部 →</a>
         </div>
-        <ul class="resource-list" id="releases-list"></ul>
+        <ul class="resource-grid" id="releases-list"></ul>
         <div class="empty-state" style="display:none"><p data-i18n="section.releases.empty">暂无近期流出内容</p></div>
         <div class="show-more-wrapper" style="display:none"><button class="btn-show-more"></button></div>
       </div>
     </section>
 
-    <section class="section">
+    <!-- Premium -->
+    <section class="section reveal">
+      <div class="section-bg-glow right"></div>
       <div class="container">
         <div class="section-header">
-          <h2 class="section-title" data-i18n="section.premium.title">⭐ 高级精选</h2>
+          <div>
+            <span class="section-label" data-i18n="section.premium.new">VIP 精选</span>
+            <h2 class="section-title" data-i18n="section.premium.title">⭐ 高级精选</h2>
+          </div>
           <span class="section-meta"><span data-i18n-dynamic></span></span>
           <a href="/premium/" class="view-all" data-i18n="section.premium.view_all">查看全部 →</a>
         </div>
-        <ul class="resource-list" id="premium-list"></ul>
+        <ul class="resource-grid" id="premium-list"></ul>
         <div class="empty-state" style="display:none"><p data-i18n="section.premium.empty">暂无高级精选内容</p></div>
         <div class="show-more-wrapper" style="display:none"><button class="btn-show-more"></button></div>
       </div>
@@ -79,10 +124,23 @@
 
   <footer class="footer">
     <div class="container">
-      <p data-i18n="footer.text">© 2026 COSV5. 本站内容仅供社群内部参考。</p>
-      <p><span data-i18n="footer.powered">Powered by COSV5 Community</span></p>
+      <div class="footer-inner">
+        <div class="footer-logo">COSV5</div>
+        <div class="footer-links">
+          <a href="/">首页</a>
+          <a href="/releases/">流出</a>
+          <a href="/premium/">精选</a>
+          <a href="/about/">关于</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p data-i18n="footer.text">© 2026 COSV5. 本站内容仅供社群内部参考。</p>
+        <p><span data-i18n="footer.powered">Powered by COSV5 Community</span></p>
+      </div>
     </div>
   </footer>
+
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
 
   <script src="/js/i18n.js"></script>
   <script src="/js/main.js"></script>
