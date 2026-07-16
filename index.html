@@ -1,154 +1,696 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" data-i18n="hero.subtitle" content="汇聚精选资源，社群成员专属。每周更新最新流出与高级精选内容。">
-  <meta name="keywords" content="COSV5,社群资源,精选内容,资源分享,近期流出,高级精选">
-  <meta name="robots" content="index, follow">
-  <meta property="og:title" content="COSV5 — 社群资源站">
-  <meta property="og:description" data-i18n="hero.subtitle" content="汇聚精选资源，社群成员专属。每周更新最新流出与高级精选内容。">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://cosv5.com">
-  <meta name="theme-color" content="#0a0a0f">
-  <link rel="canonical" href="https://cosv5.com">
-  <title data-i18n="hero.title">COSV5 — 社群资源站</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&family=Righteous&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COSV5 — Cosplay 精选社群</title>
+<meta name="description" content="COSV5 — 持有上百个资源站付费会员，精选 Cosplay，TG 直接预览。统一解压密码 COSV5.VIP。">
+<meta name="theme-color" content="#060308">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden;scroll-padding-top:70px}
+body{
+  font-family:'Noto Sans SC',system-ui,-apple-system,sans-serif;
+  background:#060308;color:#e0d6e4;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.7;
+}
+:root{
+  --bg:#060308;--card:rgba(22,10,40,0.5);--card-h:rgba(35,15,60,0.6);
+  --purple:#a78bfa;--p-deep:#6d28d9;--p-glow:rgba(167,139,250,0.12);
+  --gold:#f59e0b;--g-light:#fcd34d;
+  --t:#e0d6e4;--t2:#9788a0;--t3:#6a5a70;
+  --b:rgba(167,139,250,0.08);--b2:rgba(167,139,250,0.15);
+  --g:linear-gradient(135deg,#a78bfa,#60a5fa);
+  --gw:linear-gradient(135deg,#a78bfa,#7c3aed,#f59e0b);
+  --gg:linear-gradient(135deg,#f59e0b,#fcd34d);
+  --r:12px;--rl:20px;
+}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--p-deep);border-radius:3px}
+
+/* ── Canvas ── */
+#bg-canvas{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none}
+
+/* ── Nav ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  backdrop-filter:blur(28px);background:rgba(6,3,8,0.55);
+  border-bottom:1px solid transparent;transition:background .4s;
+}
+nav.scrolled{background:rgba(6,3,8,0.93);border-color:var(--b)}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:56px}
+.logo{
+  font-family:'ZCOOL QingKe HuangYou',cursive;font-size:20px;letter-spacing:3px;
+  background:var(--g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{
+  padding:5px 12px;border-radius:50px;color:var(--t2);text-decoration:none;
+  font-size:13px;font-weight:500;transition:all .3s;
+}
+.nav-links a:hover{color:var(--t);background:rgba(255,255,255,0.03)}
+.nav-links .active{color:var(--purple);background:rgba(167,139,250,0.06)}
+.nav-cta{
+  padding:6px 16px;border-radius:50px;background:var(--gw);color:#fff;
+  font-size:12px;font-weight:600;text-decoration:none;
+  box-shadow:0 0 18px var(--p-glow);white-space:nowrap;
+}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 0 28px rgba(167,139,250,0.2)}
+
+/* ── Floating password ── */
+.floating-pwd{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  z-index:99;padding:10px 22px;border-radius:50px;
+  background:rgba(22,10,40,0.85);backdrop-filter:blur(16px);
+  border:1px solid rgba(245,158,11,0.15);
+  color:var(--gold);font-size:13px;font-weight:600;
+  cursor:pointer;transition:all .3s;
+  font-family:inherit;box-shadow:0 4px 20px rgba(0,0,0,0.3);
+  white-space:nowrap;
+}
+.floating-pwd:hover{background:rgba(30,14,50,0.9);border-color:var(--gold)}
+.floating-pwd.copied{background:rgba(34,197,94,0.15);border-color:#22c55e;color:#22c55e}
+@media(max-width:768px){.floating-pwd{display:inline-flex}}
+@media(min-width:769px){.floating-pwd{display:inline-flex;font-size:12px;padding:8px 18px;bottom:24px;opacity:0.8}}
+@media(min-width:769px){.floating-pwd:hover{opacity:1}}
+
+/* ── Hero (compact) ── */
+.hero{
+  text-align:center;padding:90px 24px 28px;position:relative;z-index:1;
+}
+.hero-glow{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.hero-glow div{position:absolute;border-radius:50%;filter:blur(100px)}
+.hero-glow .g1{width:60vw;height:60vw;top:-20%;left:-10%;background:radial-gradient(circle,rgba(109,40,217,0.06),transparent 70%)}
+.hero-glow .g2{width:40vw;height:40vw;bottom:-20%;right:-10%;background:radial-gradient(circle,rgba(245,158,11,0.03),transparent 70%)}
+.hero-content{max-width:680px;margin:0 auto}
+.hero h1{font-size:clamp(28px,4.5vw,48px);font-weight:700;line-height:1.15;margin-bottom:14px}
+.hero h1 .t1{background:linear-gradient(135deg,#e0d6e4 30%,var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero h1 .t2{background:linear-gradient(135deg,var(--purple),var(--g-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:15px;color:var(--t2);max-width:480px;margin:0 auto 24px;line-height:1.8}
+.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
+.hero-stats{display:flex;justify-content:center;gap:44px;flex-wrap:wrap}
+.hero-stat{text-align:center}
+.hero-stat .n{font-size:24px;font-weight:700;background:var(--gg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-stat .l{font-size:12px;color:var(--t3);margin-top:3px;letter-spacing:2px}
+
+.btn-p{
+  padding:14px 32px;border-radius:50px;background:var(--gw);color:#fff;
+  text-decoration:none;font-size:14px;font-weight:600;
+  transition:all .3s;box-shadow:0 0 24px var(--p-glow);
+  display:inline-flex;align-items:center;gap:6px;
+}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 0 36px rgba(167,139,250,0.2)}
+.btn-s{
+  padding:14px 32px;border-radius:50px;
+  background:rgba(255,255,255,0.02);color:var(--t);
+  text-decoration:none;font-size:14px;font-weight:500;
+  border:1px solid var(--b);transition:all .3s;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.btn-s:hover{background:rgba(255,255,255,0.04);border-color:var(--b2)}
+
+/* ── Sections ── */
+.section{padding:64px 24px;position:relative;z-index:1}
+.sin{max-width:1000px;margin:0 auto;width:100%}
+.sc{text-align:center}.sc .sd{margin:0 auto 36px}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 18px;border-radius:50px;
+  background:rgba(167,139,250,0.04);border:1px solid var(--b);
+  font-size:11px;font-weight:500;color:var(--purple);margin-bottom:18px;
+  letter-spacing:1px;
+}
+.st{font-size:clamp(24px,3vw,34px);font-weight:700;margin-bottom:8px;line-height:1.2}
+.sd{color:var(--t2);font-size:14px;max-width:480px;margin-bottom:36px;line-height:1.8}
+.r{opacity:0;transform:translateY(16px);transition:opacity .6s,transform .6s}
+.r.v{opacity:1;transform:translateY(0)}
+.r1{transition-delay:.1s}.r2{transition-delay:.2s}.r3{transition-delay:.3s}
+
+/* ── Grids ── */
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.card{
+  padding:30px 26px;border-radius:var(--r);
+  background:var(--card);border:1px solid var(--b);
+  backdrop-filter:blur(10px);transition:all .4s;
+}
+.card:hover{transform:translateY(-3px);border-color:rgba(167,139,250,0.1);background:var(--card-h)}
+.card .ic{font-size:22px;margin-bottom:10px;display:block}
+.card h3{font-size:15px;font-weight:600;margin-bottom:4px}
+.card p{font-size:13px;color:var(--t2);line-height:1.7}
+
+/* ── About ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+@media(max-width:768px){.about-grid{grid-template-columns:1fr}}
+.about-text p{font-size:14px;color:var(--t2);line-height:1.9;margin-bottom:14px}
+.about-text strong{color:var(--t)}
+.about-quote{
+  margin-top:18px;padding:16px 20px;
+  border-left:2px solid var(--gold);
+  background:rgba(245,158,11,0.02);
+  border-radius:0 var(--r) var(--r) 0;
+  font-size:13px;color:var(--t2);line-height:1.8;
+}
+.stats-s{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stat-s{
+  padding:22px 18px;text-align:center;border-radius:var(--r);
+  background:var(--card);border:1px solid var(--b);
+  transition:all .3s;
+}
+.stat-s:hover{background:var(--card-h)}
+.stat-s .n{font-size:24px;font-weight:700;background:var(--g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-s .l{font-size:12px;color:var(--t2);margin-top:4px}
+
+/* ── Pricing ── */
+.pg{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:680px;margin:0 auto}
+.pc{
+  border-radius:var(--rl);
+  background:var(--card);border:1px solid var(--b);
+  backdrop-filter:blur(10px);position:relative;
+  transition:all .4s;cursor:pointer;
+}
+.pc:hover{transform:translateY(-3px)}
+.pc.ft{
+  border-color:rgba(167,139,250,0.14);
+  background:rgba(22,10,40,0.65);
+  box-shadow:0 0 30px rgba(167,139,250,0.04),inset 0 1px 0 rgba(167,139,250,0.08);
+}
+.pc-inner{padding:36px 28px 28px;transition:padding .4s}
+.pc.open .pc-inner{padding-bottom:20px}
+.pb{
+  position:absolute;top:-11px;left:50%;transform:translateX(-50%);
+  padding:3px 16px;border-radius:50px;
+  font-size:10px;font-weight:700;letter-spacing:1px;white-space:nowrap;z-index:2;
+}
+.pb.gold{background:var(--gg);color:#0a0a0a}
+.pb.purple{background:var(--g);color:#fff}
+.pn{font-size:17px;font-weight:600;margin-bottom:2px}
+.psub{font-size:12px;color:var(--t3);margin-bottom:16px}
+.pp{margin-bottom:4px}
+.pp .a{font-size:36px;font-weight:700;background:var(--g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pp .e{font-size:13px;color:var(--t2);margin-left:2px}
+.pt{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.pt span{padding:4px 10px;border-radius:50px;background:rgba(255,255,255,0.02);border:1px solid var(--b);font-size:11px;color:var(--t2)}
+.pc-expand{text-align:center;font-size:11px;color:var(--t3);padding:4px 0 0;transition:all .3s}
+.pc-expand .arr{display:inline-block;transition:transform .4s;margin-left:4px}
+.pc.open .pc-expand .arr{transform:rotate(180deg)}
+.pc-details{max-height:0;overflow:hidden;transition:max-height .5s ease,padding .5s ease;padding:0 28px}
+.pc.open .pc-details{max-height:400px;padding:0 28px 28px}
+.pf{list-style:none;margin:0 0 18px}
+.pf li{padding:5px 0;font-size:13px;color:var(--t2);display:flex;align-items:center;gap:8px}
+.pf li::before{content:'\2726';color:var(--purple);font-size:10px}
+.pc .btn-p,.pc .btn-s{display:flex;justify-content:center;font-size:13px;padding:12px 26px}
+
+/* ── Channels ── */
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px}
+.cc{
+  display:flex;align-items:center;gap:4px;padding:6px 10px;border-radius:50px;
+  background:var(--card);border:1px solid var(--b);
+  font-size:11px;font-weight:500;color:var(--t2);
+  text-decoration:none;transition:all .3s;justify-content:center;
+}
+.cc:hover{background:var(--card-h);border-color:var(--b2);color:var(--t);transform:translateY(-2px)}
+
+/* ── FAQ tabs ── */
+.faq-tabs{display:flex;justify-content:center;gap:8px;margin-bottom:28px;flex-wrap:wrap}
+.faq-tab{
+  padding:8px 22px;border-radius:50px;
+  background:rgba(255,255,255,0.02);border:1px solid var(--b);
+  color:var(--t2);font-size:13px;font-weight:500;
+  cursor:pointer;transition:all .3s;font-family:inherit;
+}
+.faq-tab:hover{border-color:var(--b2);color:var(--t)}
+.faq-tab.active{background:rgba(167,139,250,0.06);border-color:rgba(167,139,250,0.18);color:var(--purple)}
+.faq-panel{display:none;text-align:left;max-width:620px;margin:0 auto}
+.faq-panel.active{display:block}
+.fi{border-bottom:1px solid var(--b)}
+.fq{
+  padding:16px 0;display:flex;justify-content:space-between;
+  align-items:center;cursor:pointer;font-size:14px;
+  font-weight:500;color:var(--t);transition:color .3s;user-select:none;gap:12px;
+}
+.fq:hover{color:var(--purple)}
+.fq .a{transition:transform .3s;color:var(--t3);font-size:10px;flex-shrink:0}
+.fi.open .fq .a{transform:rotate(180deg);color:var(--purple)}
+.fa{max-height:0;overflow:hidden;transition:max-height .3s,padding .3s;padding:0}
+.fi.open .fa{max-height:500px;padding:0 0 18px}
+.fa p{font-size:13px;color:var(--t2);line-height:1.8}
+
+/* ── CTA ── */
+.cta{text-align:center;padding:60px 24px 50px!important}
+.cta h2{font-size:clamp(20px,2.5vw,28px);font-weight:700;margin-bottom:8px}
+.cta p{color:var(--t2);max-width:420px;margin:0 auto 20px;font-size:14px}
+.cta .ca{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.cta .cn{margin-top:10px;font-size:12px;color:var(--t3)}
+
+footer{padding:24px;text-align:center;position:relative;z-index:1;border-top:1px solid var(--b)}
+footer p{font-size:11px;color:var(--t3)}
+footer .fl2{display:flex;justify-content:center;gap:16px;margin:6px 0;flex-wrap:wrap}
+footer .fl2 a{color:var(--t3);text-decoration:none;font-size:11px}
+footer .fl2 a:hover{color:var(--purple)}
+
+@media(max-width:768px){
+  .nav-links a{font-size:11px;padding:4px 8px}
+  .nav-cta{font-size:11px;padding:5px 12px}
+  .about-grid{grid-template-columns:1fr}
+  .pg,.grid-3{grid-template-columns:1fr}
+  .hero{padding:76px 20px 24px}
+  .hero h1{font-size:clamp(24px,7vw,36px)}
+  .hero p{font-size:13px}
+  .hero-stats{gap:24px}
+  .section{padding:40px 16px}
+  .sin .st{font-size:clamp(20px,5vw,26px)}
+  .grid-3{gap:10px}
+  .card{padding:20px 18px}
+  .grid-4{grid-template-columns:repeat(2,1fr)}
+  .pg{gap:14px}
+  .pc-inner{padding:28px 20px 22px}
+  .pc-details{padding:0 20px!important}
+  .pc.open .pc-details{padding:0 20px 22px!important}
+  .cg{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}
+  .floating-pwd{font-size:12px;padding:8px 16px;bottom:16px}
+  footer .fl2{gap:10px}
+}
+@media(max-width:480px){
+  .hero h1{font-size:22px}
+  .hero-stats{gap:16px}
+  .hero-stat .n{font-size:18px}
+  .hero-stat .l{font-size:10px}
+  .card p{font-size:12px}
+}
+</style>
 </head>
 <body>
-  <div class="progress-bar" id="progress-bar"></div>
-  <canvas id="particles-canvas"></canvas>
 
-  <header class="header" id="header">
-    <nav class="nav">
-      <a href="/" class="nav-logo">COSV5</a>
-      <ul class="nav-links" id="nav-links">
-        <li><a href="/" class="active" data-i18n="nav.home">首页</a></li>
-        <li><a href="/releases/" data-i18n="nav.releases">流出</a></li>
-        <li><a href="/premium/" data-i18n="nav.premium">精选</a></li>
-        <li><a href="/about/" data-i18n="nav.about">关于</a></li>
-      </ul>
-      <div class="nav-right">
-        <button class="lang-btn" id="lang-toggle" onclick="toggleLang()" data-i18n="lang.switch">English</button>
-        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu">☰</button>
-      </div>
-    </nav>
-  </header>
+<canvas id="bg-canvas"></canvas>
 
-  <main>
-    <!-- Hero -->
-    <section class="hero" id="hero">
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <div class="hero-badge" data-i18n="hero.badge">COSPLAY · COMMUNITY · SHARING</div>
-        <h1>COS<span class="accent">V5</span></h1>
-        <p data-i18n="hero.subtitle">汇聚精选资源，社群成员专属。每周更新最新流出与高级精选内容。</p>
-        <div class="hero-actions">
-          <a href="/releases/" class="btn btn-primary" data-i18n="hero.cta.releases">📡 近期流出</a>
-          <a href="/premium/" class="btn btn-gold" data-i18n="hero.cta.premium">⭐ 高级精选</a>
+<nav id="nav">
+  <div class="nav-inner">
+    <div class="logo">COSV5</div>
+    <div class="nav-links">
+      <a href="#about">关于</a>
+      <a href="#showcase">精选</a>
+      <a href="#pricing">定价</a>
+      <a href="#faq">常见问题</a>
+      <a href="#join" class="nav-cta">加入</a>
+    </div>
+  </div>
+</nav>
+
+<button class="floating-pwd" onclick="copyPwd()">🔑 复制解压密码</button>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-glow"><div class="g1"></div><div class="g2"></div></div>
+  <div class="hero-content r v">
+    <h1>
+      <span class="t1">上百个资源站会员</span><br>
+      <span class="t2">精选 Cosplay 直接预览</span>
+    </h1>
+    <p>持有上百个 Cosplay 资源网站的付费账号，人工筛选后发布。不用盲下网盘包，TG 直接看全部媒体。</p>
+    <div class="hero-actions">
+      <a href="#showcase" class="btn-p">近期精选 →</a>
+      <a href="#pricing" class="btn-s">查看定价</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="n">5K+</div><div class="l">社群成员</div></div>
+      <div class="hero-stat"><div class="n">100+</div><div class="l">频道矩阵</div></div>
+      <div class="hero-stat"><div class="n">800+</div><div class="l">天运营</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section class="section" id="about">
+  <div class="sin">
+    <div class="sc">
+      <div class="badge r">关于</div>
+      <h2 class="st r">我们的故事</h2>
+      <p class="sd r">2024 年 5 月成立，原名「Coser 展馆」。站长持有上百个付费网站的终身会员。</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-text r">
+        <p><strong>2024 年 5 月 1 日</strong>，Coser 展馆（COSV5）诞生了。从一个频道开始，慢慢成长为数千人的社群——分享、整理、连接人与好内容。</p>
+        <p>经历过封禁与重建，但我们一直在成长。<strong>100+ 频道矩阵</strong>、积分生态、自研工具——所有的一切，都是为了让好内容找到真正欣赏它的人。</p>
+        <p>从 Coser 展馆到 COSV5——名字在变，初心没变。</p>
+        <div class="about-quote">
+          走过低谷、走过封禁，走到今天——<br>
+          从 Coser 展馆到 COSV5，名字在变，初心没变。
         </div>
       </div>
-      <div class="hero-scroll">
-        <span data-i18n="hero.scroll">向下滚动</span>
-        <div class="scroll-arrow"></div>
-      </div>
-    </section>
-
-    <!-- Stats -->
-    <section class="stats-section reveal">
-      <div class="container">
-        <div class="stats-grid">
-          <div class="stat-card">
-            <span class="stat-icon">📡</span>
-            <div><span class="stat-number" id="stat-releases">0</span></div>
-            <span class="stat-label" data-i18n="stat.releases">近期流出</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-icon">⭐</span>
-            <div><span class="stat-number" id="stat-premium">0</span></div>
-            <span class="stat-label" data-i18n="stat.premium">高级精选</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-icon">🌐</span>
-            <div><span class="stat-number" id="stat-channels">100+</span></div>
-            <span class="stat-label" data-i18n="stat.channels">频道矩阵</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-icon">⚡</span>
-            <div><span class="stat-live-dot"></span><span class="stat-number" data-i18n-dynamic>持续更新</span></div>
-            <span class="stat-label" data-i18n="stat.live">实时更新</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Releases -->
-    <section class="section reveal">
-      <div class="section-bg-glow left"></div>
-      <div class="container">
-        <div class="section-header">
-          <div>
-            <span class="section-label" data-i18n="section.releases.new">近期更新</span>
-            <h2 class="section-title" data-i18n="section.releases.title">📡 近期流出</h2>
-          </div>
-          <span class="section-meta"><span data-i18n-dynamic></span></span>
-          <a href="/releases/" class="view-all" data-i18n="section.releases.view_all">查看全部 →</a>
-        </div>
-        <ul class="resource-grid" id="releases-list"></ul>
-        <div class="empty-state" style="display:none"><p data-i18n="section.releases.empty">暂无近期流出内容</p></div>
-        <div class="show-more-wrapper" style="display:none"><button class="btn-show-more"></button></div>
-      </div>
-    </section>
-
-    <!-- Premium -->
-    <section class="section reveal">
-      <div class="section-bg-glow right"></div>
-      <div class="container">
-        <div class="section-header">
-          <div>
-            <span class="section-label" data-i18n="section.premium.new">VIP 精选</span>
-            <h2 class="section-title" data-i18n="section.premium.title">⭐ 高级精选</h2>
-          </div>
-          <span class="section-meta"><span data-i18n-dynamic></span></span>
-          <a href="/premium/" class="view-all" data-i18n="section.premium.view_all">查看全部 →</a>
-        </div>
-        <ul class="resource-grid" id="premium-list"></ul>
-        <div class="empty-state" style="display:none"><p data-i18n="section.premium.empty">暂无高级精选内容</p></div>
-        <div class="show-more-wrapper" style="display:none"><button class="btn-show-more"></button></div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-logo">COSV5</div>
-        <div class="footer-links">
-          <a href="/">首页</a>
-          <a href="/releases/">流出</a>
-          <a href="/premium/">精选</a>
-          <a href="/about/">关于</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p data-i18n="footer.text">© 2026 COSV5. 本站内容仅供社群内部参考。</p>
-        <p><span data-i18n="footer.powered">Powered by COSV5 Community</span></p>
+      <div class="stats-s">
+        <div class="stat-s r r1"><div class="n">5K+</div><div class="l">社群成员</div></div>
+        <div class="stat-s r r2"><div class="n">100+</div><div class="l">频道数</div></div>
+        <div class="stat-s r r1"><div class="n">800+</div><div class="l">运营天数</div></div>
+        <div class="stat-s r r2"><div class="n">40+</div><div class="l">精选合集</div></div>
       </div>
     </div>
-  </footer>
+    <div class="r" style="text-align:center;margin-top:36px;padding:28px 24px;border-radius:var(--r);background:var(--card);border:1px solid var(--b);max-width:560px;margin-left:auto;margin-right:auto">
+      <p style="font-size:13px;color:var(--t2);line-height:1.8;margin-bottom:10px">我们不促成流出，不鼓励白嫖。我们做的事：把已流出的资源<strong style="color:var(--t)">聚合 · 筛选 · 整理</strong>，高效分发给真正喜欢的人。</p>
+      <p style="font-family:'ZCOOL QingKe HuangYou',cursive;font-size:15px;color:var(--gold)">让已经流出的优质资源，触达更多爱好者。</p>
+    </div>
+  </div>
+</section>
 
-  <button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
+<!-- ══ FEATURES ══ -->
+<section class="section" id="features">
+  <div class="sin sc">
+    <div class="badge r">特色</div>
+    <h2 class="st r">我们在做的事</h2>
+    <p class="sd r">持有上百个资源站付费会员，人工筛选后发布。</p>
+    <div class="grid-3">
+      <div class="card r"><span class="ic">🔍</span><h3>百站监控</h3><p>持有 59+ 资源网站付费会员，pabot 实时监控新作发布。</p></div>
+      <div class="card r r1"><span class="ic">👁️</span><h3>直接预览</h3><p>传统网站需下载网盘包才能看。TG 直接预览全部媒体，满意再下载。</p></div>
+      <div class="card r r2"><span class="ic">🎯</span><h3>社群采购</h3><p>热门新作社群出资购买。积分兑换许愿卡，指定想要的作品。</p></div>
+      <div class="card r r1"><span class="ic">🌐</span><h3>多语言</h3><p>中文 · EN · JP · RU · KO · TH · FR · DE · HI，全球同好聚集。</p></div>
+      <div class="card r r2"><span class="ic">🛠️</span><h3>自研工具</h3><p>搜索/签到/分发/清理——完整 Bot 体系，提升社群体验。</p></div>
+      <div class="card r r3"><span class="ic">⚡</span><h3>及时通知</h3><p>pabot 7×24 监控，新作发布立即通知，比手动刷站快。</p></div>
+    </div>
+  </div>
+</section>
 
-  <script src="/js/i18n.js"></script>
-  <script src="/js/main.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      loadSection('releases-list', '/data/releases.json', false);
-      loadSection('premium-list', '/data/premium.json', true);
-    });
-  </script>
+<!-- ══ SHOWCASE ══ -->
+<section class="section" id="showcase">
+  <div class="sin sc">
+    <div class="badge r">近期精选</div>
+    <h2 class="st r">精选作品一览</h2>
+    <p class="sd r">加入社群即可查看全部媒体内容，直接预览，满意再下。</p>
+    <div style="background:var(--card);border:1px solid var(--b);border-radius:var(--rl);padding:32px 24px;max-width:500px;margin:0 auto;text-align:center">
+      <p style="font-size:36px;margin-bottom:12px">🖼️</p>
+      <p style="font-size:14px;color:var(--t2);margin-bottom:16px;line-height:1.8">所有作品在 TG 频道直接预览<br>加入社群后即可查看全部媒体</p>
+      <a href="https://t.me/COSV5_COM" target="_blank" class="btn-p" style="display:inline-flex">前往主频道 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TOOLS ══ -->
+<section class="section">
+  <div class="sin sc">
+    <div class="badge r">工具生态</div>
+    <h2 class="st r">自研 Bot 体系</h2>
+    <p class="sd r">一套完整的 Bot 工具链，覆盖内容分发、积分系统、搜索服务、元数据处理——同频道少有。</p>
+    <div class="grid-3">
+      <div class="card r" style="text-align:left;display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+          <span style="font-size:28px">🐹</span>
+          <div><h3 style="margin:0">GuiYaoBot</h3><span style="font-size:11px;color:var(--t3)">@GuiYaoBot</span></div>
+        </div>
+        <p style="font-size:13px;color:var(--t2);line-height:1.7">签到积分系统 · 邮箱绑定保障会员权益不丢失 · 权益自助恢复。5K+ 绑定用户。</p>
+      </div>
+      <div class="card r r1" style="text-align:left;display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+          <span style="font-size:28px">🔍</span>
+          <div><h3 style="margin:0">PaPulseBot</h3><span style="font-size:11px;color:var(--t3)">@PaPulseBot</span></div>
+        </div>
+        <p style="font-size:13px;color:var(--t2);line-height:1.7">以图搜图 · 社群资源搜索 · 网站内容检索。搜索 8K+ 次，免费使用。</p>
+      </div>
+      <div class="card r r2" style="text-align:left;display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+          <span style="font-size:28px">🔄</span>
+          <div><h3 style="margin:0">V5Mesh</h3><span style="font-size:11px;color:var(--t3)">@V5MeshBot</span></div>
+        </div>
+        <p style="font-size:13px;color:var(--t2);line-height:1.7">矩阵分发机器人。一次内容，AI 优化，多频道同步。同步 100+ 频道，降低重复内容风控。</p>
+      </div>
+      <div class="card r r1" style="text-align:left;display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+          <span style="font-size:28px">🧹</span>
+          <div><h3 style="margin:0">ExifCleaner</h3><span style="font-size:11px;color:var(--t3)">自研工具</span></div>
+        </div>
+        <p style="font-size:13px;color:var(--t2);line-height:1.7">元数据清理工具。支持只读文件、递归目录、自定义 EXIF 编辑。已处理 12K+ 文件。</p>
+      </div>
+      <div class="card r r2" style="text-align:left;display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+          <span style="font-size:28px">👁️</span>
+          <div><h3 style="margin:0">ChuYunbot</h3><span style="font-size:11px;color:var(--t3)">@ChuYunbot</span></div>
+        </div>
+        <p style="font-size:13px;color:var(--t2);line-height:1.7">作品预览 Bot。加入社群后可通过 Bot 直接预览作品媒体，满意再下载。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COMPARISON ══ -->
+<section class="section">
+  <div class="sin sc">
+    <div class="badge r">对比</div>
+    <h2 class="st r">为什么选择 COSV5</h2>
+    <p class="sd r">不是最贵，也不是最大，但可能是最用心的。</p>
+    
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:720px;margin:0 auto">
+      <!-- vs 传统网站 -->
+      <div class="card r" style="text-align:left;padding:24px">
+        <div style="font-size:11px;color:var(--t3);letter-spacing:2px;margin-bottom:10px">对比传统会员网站</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:flex-start;gap:10px">
+            <span style="color:var(--gold);font-size:14px;flex-shrink:0">✓</span>
+            <div><span style="font-size:13px;font-weight:600;color:var(--t)">TG 直接预览全部媒体</span><br><span style="font-size:12px;color:var(--t2)">不用先付费再下载网盘包盲看，满意再下</span></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:10px">
+            <span style="color:var(--gold);font-size:14px;flex-shrink:0">✓</span>
+            <div><span style="font-size:13px;font-weight:600;color:var(--t)">持有上百个站会员</span><br><span style="font-size:12px;color:var(--t2)">你付一份钱，共享上百个资源站的精选内容</span></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:10px">
+            <span style="color:var(--gold);font-size:14px;flex-shrink:0">✓</span>
+            <div><span style="font-size:13px;font-weight:600;color:var(--t)">人工筛选 · 杜绝低质</span><br><span style="font-size:12px;color:var(--t2)">每份资源经人工筛选，没有滥竽充数</span></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:10px">
+            <span style="color:var(--gold);font-size:14px;flex-shrink:0">✓</span>
+            <div><span style="font-size:13px;font-weight:600;color:var(--t)">定价更低</span><br><span style="font-size:12px;color:var(--t2)">¥18/月起，分摊订阅成本，人人用得起</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- vs TG同行 -->
+      <div class="card r r2" style="text-align:left;padding:24px;border-color:rgba(167,139,250,0.12);background:rgba(22,10,40,0.6)">
+        <div style="font-size:11px;color:var(--purple);letter-spacing:2px;margin-bottom:10px">对比 Telegram 同行</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:flex-start;gap:10px">
+            <span style="color:var(--purple);font-size:14px;flex-shrink:0">✦</span>
+            <div><span style="font-size:13px;font-weight:600;color:var(--t)">每日全网流出·更全更及时</span><br><span style="font-size:12px;color:var(--t2)">许多同行的资源实际上是从我们这里搬运的</span></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:10px">
+            <span style="color:var(--purple);font-size:14px;flex-shrink:0">✦</span>
+            <div><span style="font-size:13px;font-weight:600;color:var(--t)">可累积积分兑换权益</span><br><span style="font-size:12px;color:var(--t2)">签到积分兑换群组资格、许愿卡等，不只是付费</span></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:10px">
+            <span style="color:var(--purple);font-size:14px;flex-shrink:0">✦</span>
+            <div><span style="font-size:13px;font-weight:600;color:var(--t)">权益保障体系</span><br><span style="font-size:12px;color:var(--t2)">邮箱绑定，换号不丢失会员身份，有保障</span></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:10px">
+            <span style="color:var(--purple);font-size:14px;flex-shrink:0">✦</span>
+            <div><span style="font-size:13px;font-weight:600;color:var(--t)">无广告 · 清净体验</span><br><span style="font-size:12px;color:var(--t2)">没有铺天盖地的营销，每一个用户都能宾至如归</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRICING ══ -->
+<section class="section" id="pricing">
+  <div class="sin sc">
+    <div class="badge r">定价</div>
+    <h2 class="st r">选择方案</h2>
+    <div class="pg">
+      <div class="pc r" onclick="togglePricing(this)">
+        <div class="pb gold">🔥 热销</div>
+        <div class="pc-inner">
+          <div class="pn">🌱 初级</div>
+          <div class="psub">🐹 仓鼠窝 · 每日全网流出 · 允许转发</div>
+          <div class="pp"><span class="a">¥18</span><span class="e">/月</span></div>
+          <div class="pt"><span>¥36/年</span><span>¥66/永久</span></div>
+          <div class="pc-expand">点击查看详情 <span class="arr">▾</span></div>
+        </div>
+        <div class="pc-details">
+          <ul class="pf">
+            <li>全网流出资源每日更新</li>
+            <li>TG 直接预览全部媒体</li>
+            <li>高级资源延后约1周预览</li>
+            <li>以图搜图 + 频道搜索</li>
+            <li>签到积分系统</li>
+            <li>🔄 支持转发分享</li>
+          </ul>
+          <a href="https://t.me/V5joinBot" target="_blank" class="btn-s">选择初级</a>
+        </div>
+      </div>
+      <div class="pc ft r r2" onclick="togglePricing(this)">
+        <div class="pb purple">⭐ 推荐</div>
+        <div class="pc-inner">
+          <div class="pn">🎄 高级</div>
+          <div class="psub">👑 大佬群 · 含初级全部权益 · 禁止转发</div>
+          <div class="pp"><span class="a">¥198</span><span class="e">/年</span></div>
+          <div class="pt"><span>¥288/永久</span></div>
+          <div class="pc-expand">点击查看详情 <span class="arr">▾</span></div>
+        </div>
+        <div class="pc-details">
+          <ul class="pf">
+            <li>含初级全部权益</li>
+            <li>未流出资源包（投稿/采购）</li>
+            <li>高级资源第一时间查看</li>
+            <li>网站内容搜索权限</li>
+            <li>许愿卡 · 积分特权</li>
+            <li>🔒 禁止转发分享</li>
+          </ul>
+          <a href="https://t.me/V5joinBot" target="_blank" class="btn-p">选择高级 🚀</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CHANNELS ══ -->
+<section class="section" id="channels">
+  <div class="sin sc">
+    <div class="badge r">频道</div>
+    <h2 class="st r">频道矩阵</h2>
+    <p class="sd r">100+ 频道，覆盖多个语言。</p>
+    <div class="cg">
+      <a class="cc" href="https://t.me/COSV5Nav" target="_blank">★ @COSV5Nav 导航</a>
+      <a class="cc" href="https://t.me/COSV5_COM" target="_blank">★ @COSV5_COM 主频道</a>
+      <a class="cc" href="https://t.me/COSV5CN" target="_blank">★ @COSV5CN 中文</a>
+      <a class="cc" href="https://t.me/COSV5_VIP" target="_blank">VIP @COSV5_VIP 高级</a>
+      <a class="cc" href="https://t.me/COSV5ENG" target="_blank">EN @COSV5ENG</a>
+      <a class="cc" href="https://t.me/COSV5jap" target="_blank">JA @COSV5jap</a>
+      <a class="cc" href="https://t.me/COSV5RUS" target="_blank">RU @COSV5RUS</a>
+      <a class="cc" href="https://t.me/COSV5Kor" target="_blank">KO @COSV5Kor</a>
+      <a class="cc" href="https://t.me/COSV5Thai" target="_blank">TH @COSV5Thai</a>
+      <a class="cc" href="https://t.me/COSV5FR" target="_blank">FR @COSV5FR</a>
+      <a class="cc" href="https://t.me/COSV5DE" target="_blank">DE @COSV5DE</a>
+      <a class="cc" href="https://t.me/COSV5Hindi" target="_blank">HI @COSV5Hindi</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section class="section" id="faq">
+  <div class="sin sc">
+    <div class="badge r">FAQ</div>
+    <h2 class="st r">常见问题</h2>
+    <div class="faq-tabs r">
+      <button class="faq-tab active" onclick="switchTab(this,'pre')">未进群</button>
+      <button class="faq-tab" onclick="switchTab(this,'post')">已进群</button>
+      <button class="faq-tab" onclick="switchTab(this,'other')">其它</button>
+    </div>
+
+    <div class="faq-panel active" id="pre">
+      <div class="fi"><div class="fq">初级和高级有什么区别？一次付还是每年？<span class="a">▼</span></div><div class="fa"><p>初级 ¥18/月、¥36/年、¥66/永久，每天更新全网流出资源，高级资源延后约1周预览。<br>高级 ¥198/年、¥288/永久，含初级全部权益，额外有未流出资源包（社群投稿+社群采购），所有资源第一时间查看。<br>初级¥66永久，高级¥288永久，都是买断制。</p></div></div>
+      <div class="fi"><div class="fq">付款后怎么加入？<span class="a">▼</span></div><div class="fa"><p>通过 @V5joinBot 完成支付，Bot 自动引导加入社群。有问题联系 @V5CSRbot。</p></div></div>
+      <div class="fi"><div class="fq">为什么要付费？免费不行吗？<span class="a">▼</span></div><div class="fa"><p>免费社群难以长期维持——恶意举报封号封群，资源一夜归零。付费的本质是<strong style="color:var(--t)">抗风险能力</strong>：封号损失、备份维护、持续采购。你也买到了<strong style="color:var(--t)">省心</strong>——不用自己翻几十个站，我们替你筛好。</p></div></div>
+      <div class="fi"><div class="fq">资源质量怎么样？量大吗？<span class="a">▼</span></div><div class="fa"><p>🐹 初级（仓鼠窝）：量大类全，覆盖多家付费站，每日更新。<br>👑 高级（大佬群）：投稿·自购·许愿·定制，品质更精。<br>可以先看频道帖子里的预览，满意再决定。</p></div></div>
+      <div class="fi"><div class="fq">和那些网站比优势在哪？<span class="a">▼</span></div><div class="fa"><p>传统网站需先付费再下载网盘包才能看。COSV5 在 TG 直接预览全部媒体，满意再下。我们持有上百个站会员，筛选后再发布。</p></div></div>
+      <div class="fi"><div class="fq">有打包下载吗？<span class="a">▼</span></div><div class="fa"><p>目前通过 TG 频道直接预览和下载。打包功能在开发中。</p></div></div>
+    </div>
+
+    <div class="faq-panel" id="post">
+      <div class="fi"><div class="fq">🔑 解压密码是什么？<span class="a">▼</span></div><div class="fa">
+        <div style="text-align:center;padding:14px;background:rgba(245,158,11,0.03);border-radius:8px;border:1px solid rgba(245,158,11,0.08);margin-bottom:10px">
+          <p style="font-size:10px;color:var(--t3);margin-bottom:4px">当前统一密码（点击复制）</p>
+          <p style="font-size:20px;font-weight:700;letter-spacing:4px;color:var(--g-light);cursor:pointer" onclick="copyPwd()">COSV5.VIP</p>
+        </div>
+        <p style="font-size:11px;color:var(--t3);margin-bottom:6px">📚 历史密码：@coserdh · @CosYiMi · 123321 · CoserBay</p>
+        <p style="font-size:11px;color:var(--gold);margin-bottom:8px">⚠️ 严格区分大小写，符号准确，无多余空格</p>
+        <p style="font-size:11px;color:var(--t2);margin-bottom:4px">📦 分卷解压：</p>
+        <p style="font-size:11px;color:var(--t3);margin-bottom:8px;line-height:1.8">① 所有分卷文件在同一文件夹<br>② 选第一个分卷（.part1/.001）解压<br>③ 系统自动拼接</p>
+        <p style="font-size:11px;color:var(--t2);margin-bottom:4px">🛠️ 推荐工具：</p>
+        <p style="font-size:11px;color:var(--t3);margin-bottom:8px">Windows：Bandizip · iOS：Documents/iZip · Android：ZArchiver</p>
+        <p style="font-size:11px;color:var(--t2);margin-bottom:4px">📱 iOS 注意：</p>
+        <p style="font-size:11px;color:var(--t3)">系统「文件」App 对特殊字符密码有误报 bug。用 Documents 或 iZip 打开解压即可。</p>
+      </div></div>
+      <div class="fi"><div class="fq">如何绑定邮箱？有什么用？<span class="a">▼</span></div><div class="fa"><p>在 @GuiYaoBot 绑定邮箱。TG 账号出问题时可验证恢复社群权益，不会因换号丢失会员身份。</p></div></div>
+      <div class="fi"><div class="fq">积分怎么获取和兑换？<span class="a">▼</span></div><div class="fa"><p>在 @GuiYaoBot 每日签到获取积分。可兑换许愿卡（指定作品，社群采购）或其他权益。</p></div></div>
+      <div class="fi"><div class="fq">如何投稿？有奖励吗？<span class="a">▼</span></div><div class="fa"><p>社群接受未发布过的高质量作品投稿。被采纳后获积分奖励，优质投稿推送至高级社群。</p></div></div>
+      <div class="fi"><div class="fq">如何邀请好友？<span class="a">▼</span></div><div class="fa"><p>在 @GuiYaoBot 获取邀请链接。好友加入后你获得积分奖励。</p></div></div>
+    </div>
+
+    <div class="faq-panel" id="other">
+      <div class="fi"><div class="fq">遇到问题联系谁？<span class="a">▼</span></div><div class="fa"><p>联系 @V5CSRbot，涵盖支付、权益、账号等问题。</p></div></div>
+      <div class="fi"><div class="fq">社群有哪些频道？<span class="a">▼</span></div><div class="fa"><p>主频道 @COSV5_COM · 高级 @COSV5_VIP · 中文 @COSV5CN · 多语言频道 (EN/JP/RU/KO/TH/FR/DE/HI)。全部列表见 @COSV5Nav。</p></div></div>
+      <div class="fi"><div class="fq">有哪些 Bot 可用？<span class="a">▼</span></div><div class="fa"><p>@PaPulseBot — 搜索 / @GuiYaoBot — 签到积分 / @V5joinBot — 购买 / @V5CSRbot — 客服 / @ChuYunbot — 预览</p></div></div>
+      <div class="fi"><div class="fq">社群什么时候成立的？<span class="a">▼</span></div><div class="fa"><p>2024年5月1日。走过封禁与重建，运营800+天，成员5000+，频道100+。</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TEAM ══ -->
+<section class="section">
+  <div class="sin sc">
+    <div class="badge r">幕后</div>
+    <h2 class="st r">谁在运营</h2>
+    <p class="sd r">两个人在不同城市，让这个社群每天在转。</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:400px;margin:0 auto">
+      <div class="card r" style="text-align:center;padding:28px 20px">
+        <div style="width:56px;height:56px;border-radius:50%;background:var(--g);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff">低</div>
+        <h3 style="font-size:15px;font-weight:600;margin-bottom:2px">低毒</h3>
+        <p style="font-size:11px;color:var(--t3);margin-bottom:6px">主理人</p>
+        <p style="font-size:12px;color:var(--t2);line-height:1.6">内容、运营、社群——每天在做的事。</p>
+      </div>
+      <div class="card r r2" style="text-align:center;padding:28px 20px">
+        <div style="width:56px;height:56px;border-radius:50%;background:var(--g);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff">小</div>
+        <h3 style="font-size:15px;font-weight:600;margin-bottom:2px">小z</h3>
+        <p style="font-size:11px;color:var(--t3);margin-bottom:6px">AI 工程师</p>
+        <p style="font-size:12px;color:var(--t2);line-height:1.6">自动化、数据、技术基建——幕后的齿轮。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="section cta" id="join">
+  <div class="sin">
+    <h2 class="r">加入 COSV5</h2>
+    <p class="r">喜欢 Cosplay？来对地方了。</p>
+    <div class="ca r">
+      <a href="https://t.me/V5joinBot" target="_blank" class="btn-p">立即加入 🚀</a>
+      <a href="https://t.me/COSV5Nav" target="_blank" class="btn-s">先逛逛 →</a>
+    </div>
+    <div class="cn">有问题？联系 @V5CSRbot</div>
+  </div>
+</section>
+
+<footer>
+  <p>COSV5 · Cosplay · 社群</p>
+  <div class="fl2">
+    <a href="#about">关于</a>
+    <a href="#pricing">定价</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://t.me/V5joinBot">购买</a>
+    <a href="https://t.me/V5CSRbot">客服</a>
+  </div>
+</footer>
+
+<script>
+const c=document.getElementById('bg-canvas');if(!c){}else{
+const x=c.getContext('2d');let p=[],W,H,f=0;
+function rs(){W=c.width=window.innerWidth;H=c.height=window.innerHeight}
+window.addEventListener('resize',rs);rs();
+class Pt{constructor(){this.x=Math.random()*W;this.y=Math.random()*H;this.s=Math.random()*1.4+0.3;this.sx=(Math.random()-0.5)*0.15;this.sy=(Math.random()-0.5)*0.15;this.o=Math.random()*0.18+0.02;this.h=Math.random()*30+250}
+up(){this.x+=this.sx+Math.sin(f*0.001+this.y*0.004)*0.03;this.y+=this.sy+Math.cos(f*0.001+this.x*0.004)*0.03;if(this.x<0)this.x=W;if(this.x>W)this.x=0;if(this.y<0)this.y=H;if(this.y>H)this.y=0}
+dr(){x.beginPath();x.arc(this.x,this.y,this.s,0,Math.PI*2);x.fillStyle=`hsla(${this.h},40%,45%,${this.o})`;x.fill()}}
+for(let i=0;i<50;i++)p.push(new Pt());
+function cn(){for(let i=0;i<p.length;i++)for(let j=i+1;j<p.length;j++){let dx=p[i].x-p[j].x,dy=p[i].y-p[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<80){x.beginPath();x.moveTo(p[i].x,p[i].y);x.lineTo(p[j].x,p[j].y);x.strokeStyle=`rgba(167,139,250,${(1-d/80)*0.02})`;x.stroke()}}}
+function an(){f++;x.clearRect(0,0,W,H);p.forEach(q=>{q.up();q.dr()});cn();requestAnimationFrame(an)}
+an()}
+
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>50));
+const ro=new IntersectionObserver((e)=>{e.forEach(n=>{if(n.isIntersecting){n.target.classList.add('v');ro.unobserve(n.target)}})},{threshold:0.08});
+document.querySelectorAll('.r').forEach(e=>ro.observe(e));
+function copyPwd(){
+  navigator.clipboard?.writeText('COSV5.VIP');
+  document.querySelectorAll('.floating-pwd').forEach(el=>{el.classList.add('copied');el.textContent='已复制 ✓'});
+  setTimeout(()=>{document.querySelectorAll('.floating-pwd').forEach(el=>{el.classList.remove('copied');el.textContent='🔑 复制解压密码'})},2000);
+}
+document.querySelectorAll('.fq').forEach(q=>{q.addEventListener('click',()=>{const i=q.closest('.fi'),o=i.classList.contains('open');document.querySelectorAll('.fi.open').forEach(j=>j.classList.remove('open'));if(!o)i.classList.add('open')})});
+function switchTab(btn,id){
+  document.querySelectorAll('.faq-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.faq-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');document.getElementById(id).classList.add('active');
+}
+function togglePricing(el){
+  const o=el.classList.contains('open');
+  document.querySelectorAll('.pc.open').forEach(c=>c.classList.remove('open'));
+  if(!o)el.classList.add('open');
+}
+</script>
 </body>
 </html>
